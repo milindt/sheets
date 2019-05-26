@@ -51,3 +51,6 @@ would have to be done to your project?*
 *How was your API design process and what was your motivation on the choice of patterns?*
 > I tried to follow REST for the API endpoint developement.
 > Since I followed TDD, not just as test first approach but as way to find design insigths by staying true to the requirements, I found myself refactoring the validations code a bit. Instead of hard coding the list of valid sheet names and the sheet name regex, I used strategry pattern to provide these details from outside. This means we can easily change these settings/configuration without changing much of the code. This sepration was evident when we defined a separate stratergy for test cases, which is always a good practice to follow.
+
+## Future improvements
+I tried to stay true to the requirements and did not write anything which was not specified, not even validation for the recepients. Now that we have the test coverage, it will be a lot easier to add a new feature, without compromising the exisisting functionality.
