@@ -22,7 +22,7 @@ public class SheetsApplicationTests {
 	@Test
 	public void contextLoads() {
 		Sharing request = new Sharing();
-		request.setTest("success");
+		//request.setTest("success");
 		ResponseEntity <Sharing> sharingAddedResponse =
 				restTemplate.postForEntity("/sheets/sharing", request, Sharing.class);
 

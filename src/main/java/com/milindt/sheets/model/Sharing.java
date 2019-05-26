@@ -1,21 +1,23 @@
 package com.milindt.sheets.model;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.List;
 
+@Entity
 public class Sharing {
 
-    private String test;
+    @Id
+    private Long id;
+
+    @ElementCollection(targetClass = String.class)
     private List <String> selections;
 
+    @ElementCollection(targetClass = String.class)
+    private List <String> emailIds;
+
     public Sharing() {
-    }
-
-    public void setTest(String test) {
-        this.test = test;
-    }
-
-    public String getTest() {
-        return test;
     }
 
     public void setSelections(List<String> selections) {
@@ -24,5 +26,17 @@ public class Sharing {
 
     public List <String> getSelections() {
         return selections;
+    }
+
+    public List <String> getEmailIds() {
+        return emailIds;
+    }
+
+    public void setEmailIds(List <String> emailIds) {
+        this.emailIds = emailIds;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
