@@ -6,9 +6,11 @@ import com.milindt.sheets.model.Sharing;
 import com.milindt.sheets.model.SheetsValidationStratergy;
 import com.milindt.sheets.repository.SharingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class SheetsService {
 
     @Autowired
