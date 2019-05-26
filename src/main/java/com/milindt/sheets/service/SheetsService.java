@@ -4,6 +4,7 @@ import com.milindt.sheets.exception.InvalidSelectionException;
 import com.milindt.sheets.exception.UnknownSheetException;
 import com.milindt.sheets.model.Sharing;
 import com.milindt.sheets.model.SheetsValidationStratergy;
+import com.milindt.sheets.repository.SharingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -13,11 +14,13 @@ public class SheetsService {
     @Autowired
     SheetsValidationStratergy sheetsValidationStratergy;
 
-    public Sharing addSharing(Sharing sharing) {
+    @Autowired
+    private SharingRepository repository;
 
+    public Sharing addSharing(Sharing sharing) {
         validateSelections(sharing.getSelections());
         validateSheets(sharing);
-        return sharing;
+        return repository.save(sharing);
     }
 
     private void validateSelections(List <String> selections) {
@@ -61,4 +64,7 @@ public class SheetsService {
         this.sheetsValidationStratergy = sheetsValidationStratergy;
     }
 
+    public void setSharingRepository(SharingRepository repository) {
+        this.repository = repository;
+    }
 }

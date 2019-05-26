@@ -13,10 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-public class SheetsRepositoryTest {
+public class SharingRepositoryTest {
 
     @Autowired
-    private SharingRepository sheetsRepository;
+    private SharingRepository sharingRepository;
 
     @Test
     void givenSharing_whenSave_thenGetOk() {
@@ -24,9 +24,9 @@ public class SheetsRepositoryTest {
         sharing.setId(1l);
         sharing.setEmailIds(Collections.singletonList("myEmail@mail.com"));
         sharing.setSelections(Collections.singletonList("sheet1!A1:Z99"));
-        sheetsRepository.save(sharing);
+        sharingRepository.save(sharing);
 
-        Sharing persistedSharing = sheetsRepository.findAll().get(0);
+        Sharing persistedSharing = sharingRepository.findAll().get(0);
         assertThat(persistedSharing)
                 .isNotNull();
         assertThat(persistedSharing.getEmailIds())

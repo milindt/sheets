@@ -4,10 +4,12 @@ import com.milindt.sheets.exception.UnknownSheetException;
 import com.milindt.sheets.model.Constants;
 import com.milindt.sheets.model.Sharing;
 import com.milindt.sheets.model.SheetsValidationStratergy;
+import com.milindt.sheets.repository.SharingRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
@@ -16,11 +18,16 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class SheetsServiceTest {
 
     private SheetsService service;
+
+    @Mock
+    private SharingRepository repository;
 
     private class TestValidationStratergy implements SheetsValidationStratergy {
 
@@ -46,6 +53,7 @@ public class SheetsServiceTest {
     void setUp() {
         service = new SheetsService();
         service.setSheetsValidationStratergy(new TestValidationStratergy());
+        service.setSharingRepository(repository);
     }
 
     @Test
@@ -134,6 +142,18 @@ public class SheetsServiceTest {
                 .isNotNull();
     }
 
+    @Test
+    void addSharings_persistsSharings() {
+
+        Sharing sharing = new Sharing();
+        sharing.setSelections(Collections.singletonList("SheetNameWithoutSpacesWithRanges!B2:B5"));
+        sharing.setEmailIds(Collections.singletonList("myEmail@mail.com"));
+        when(repository.save(sharing))
+                .thenReturn(sharing);
+
+        Sharing persistedSharing = service.addSharing(sharing);
+        verify(repository).save(persistedSharing);
+    }
 
 
 }
