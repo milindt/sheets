@@ -24,4 +24,22 @@ An API service which lets you share your Sheets selections with recepients
 1. Take the project checkout using `git clone https://github.com/milindt/sheets.git`
 2. Go to the project root and perform first time dependency download/application sanity using `mvn clean test` (Note: This requires Maven and internet connection, this step might take some time when launched for the first time)
 3. Launch the application using `mvn spring-boot:run`. This will launch the applicatio and print the port to be used.
-4. Using a HTTP client like Postman make following post call 
+4. Using a HTTP client like Postman make following **POST** call: `http://localhost:8080/sheets/sharing` with this **JSON** body:
+```json
+{
+    "selections": [
+        "Assumptions!A1",
+        "Assumptions!A2"
+    ],
+    "emailIds": [
+        "test@mail.com",
+        "milind.takawale@gmail.com"
+    ]
+}
+```
+This should return you the same JSON as output with HTTP code 200 OK
+5. Using a HTTP client like Postman make following **POST** call: `http://localhost:8080/sheets/sharing`. This should return you list of all of the sharings saved.
+7. Alternatively you can use [this postman collection](https://www.getpostman.com/collections/2622e6194e5a77ed5efe)!
+
+
+
