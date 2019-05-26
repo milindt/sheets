@@ -1,4 +1,10 @@
 package com.milindt.sheets.model;
 
-public class SheetsValidationStratergy {
+import java.util.List;
+
+public interface SheetsValidationStratergy {
+
+    List <String> getValidSheetValues();
+
+    String getValidSelectionRegex();
 }

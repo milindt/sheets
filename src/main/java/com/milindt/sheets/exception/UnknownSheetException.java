@@ -1,4 +1,5 @@
 package com.milindt.sheets.exception;
 
-public class UnknownSheetException {
+public class UnknownSheetException extends RuntimeException {
+
 }
