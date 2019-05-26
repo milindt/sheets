@@ -12,6 +12,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Collections;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -35,6 +37,20 @@ public class SheetsControllerTest {
         //Act and Assert
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/sheets/sharing")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{}"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void getAllSharings_invokesSheetsService() throws Exception {
+        //Arrange
+        given(sheetsService.getAllSharings())
+                .willReturn(Collections.singletonList(new Sharing()));
+
+        //Act and Assert
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/sheets/sharings")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{}"))
                 .andExpect(status().isOk());

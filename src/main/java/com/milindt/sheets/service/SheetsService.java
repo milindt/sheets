@@ -12,15 +12,15 @@ import java.util.List;
 public class SheetsService {
 
     @Autowired
-    SheetsValidationStratergy sheetsValidationStratergy;
+    private SheetsValidationStratergy sheetsValidationStratergy;
 
     @Autowired
-    private SharingRepository repository;
+    private SharingRepository sharingRepository;
 
     public Sharing addSharing(Sharing sharing) {
         validateSelections(sharing.getSelections());
         validateSheets(sharing);
-        return repository.save(sharing);
+        return sharingRepository.save(sharing);
     }
 
     private void validateSelections(List <String> selections) {
@@ -64,7 +64,12 @@ public class SheetsService {
         this.sheetsValidationStratergy = sheetsValidationStratergy;
     }
 
-    public void setSharingRepository(SharingRepository repository) {
-        this.repository = repository;
+    void setSharingRepository(SharingRepository repository) {
+        this.sharingRepository = repository;
     }
+
+    public List <Sharing> getAllSharings() {
+        return sharingRepository.findAll();
+    }
+
 }
