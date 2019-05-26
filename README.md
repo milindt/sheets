@@ -21,10 +21,10 @@ An API service which lets you share your Sheets selections with recepients
 6. Modified the [Integration test](https://github.com/milindt/sheets/blob/master/src/test/java/com/milindt/sheets/SheetsApplicationTests.java) to test our application end to end.
 
 ## Usage info
-1. Take the project checkout using `git clone https://github.com/milindt/sheets.git`
-2. Go to the project root and perform first time dependency download/application sanity using `mvn clean test` (Note: This requires Maven and internet connection, this step might take some time when launched for the first time)
-3. Launch the application using `mvn spring-boot:run`. This will launch the applicatio and print the port to be used.
-4. Using a HTTP client like Postman make following **POST** call: `http://localhost:8080/sheets/sharing` with this **JSON** body:
+* Take the project checkout using `git clone https://github.com/milindt/sheets.git`
+* Go to the project root and perform first time dependency download/application sanity using `mvn clean test` (Note: This requires Maven and internet connection, this step might take some time when launched for the first time)
+* Launch the application using `mvn spring-boot:run`. This will launch the applicatio and print the port to be used.
+* Using a HTTP client like Postman make following **POST** call: `http://localhost:8080/sheets/sharing` with this **JSON** body:
 ```json
 {
     "selections": [
@@ -38,8 +38,16 @@ An API service which lets you share your Sheets selections with recepients
 }
 ```
 This should return you the same JSON as output with HTTP code 200 OK
-5. Using a HTTP client like Postman make following **POST** call: `http://localhost:8080/sheets/sharing`. This should return you list of all of the sharings saved.
-7. Alternatively you can use [this postman collection](https://www.getpostman.com/collections/2622e6194e5a77ed5efe)!
+* Using a HTTP client like Postman make following **POST** call: `http://localhost:8080/sheets/sharing`. This should return you list of all of the sharings saved.
+* Alternatively you can use [this postman collection](https://www.getpostman.com/collections/2622e6194e5a77ed5efe)!
 
+## QnA
 
+*If you had to generate a new document every time a sharing is added/modified, where would you put that piece of code? What changes
+would have to be done to your project?*
+> This would definitely make me think about my current choice of database. I would definitely want to get the data out of the memory and on to the disk, as soon as possible. We may even think about a segregated, distributed storage so that the machine hosting the application does not suffer.
+> Since we have already maintained the flexibility of switching the database implementations easily this change won't be that difficult to accomodate. A new repository for Sheets will be needed though.
 
+*How was your API design process and what was your motivation on the choice of patterns?*
+> I tried to follow REST for the API endpoint developement.
+> Since I followed TDD, not just as test first approach but as way to find design insigths by staying true to the requirements, I found myself refactoring the validations code a bit. Instead of hard coding the list of valid sheet names and the sheet name regex, I used strategry pattern to provide these details from outside. This means we can easily change these settings/configuration without changing much of the code. This sepration was evident when we defined a separate stratergy for test cases, which is always a good practice to follow.
