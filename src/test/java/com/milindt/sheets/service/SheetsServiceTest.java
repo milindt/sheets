@@ -17,6 +17,6 @@ public class SheetsServiceTest {
 
     @Test
     void addSharings_validatesSelections() {
-        
+
     }
 }
